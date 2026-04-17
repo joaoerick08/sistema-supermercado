@@ -17,7 +17,10 @@ Frontend
 npm install  
 
 3. Iniciar a aplicação:
-npm run dev 
+npm run dev
+
+---
+
 Observação:
 
 Ao iniciar o sistema pela primeira vez, o backend cria automaticamente um usuário administrador padrão para acesso inicial ao sistema.
