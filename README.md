@@ -1,25 +1,28 @@
 Como Executar o Projeto
+
 Backend
-
-1. Acessar a pasta do backend  
-2. Executar o comando:
-npm install  
-
-3. Iniciar o servidor:
-node Server.js  
-
----
+Acesse a pasta do backend pelo terminal:
+cd backend-supermercado
+Instale as dependências:
+npm install
+Inicie o servidor:
+node Server.js
 
 Frontend
 
-1. Acessar a pasta do frontend  
-2. Executar o comando:
-npm install  
+Abra um novo terminal e acesse a pasta do frontend:
 
-3. Iniciar a aplicação:
+cd frontend-supermercado
+
+Instale as dependências:
+
+npm install
+
+Inicie a aplicação:
+
 npm run dev
 
----
+Após isso, acesse o endereço exibido no terminal.
 
 Observação:
 
