@@ -13,6 +13,9 @@ function App() {
   const [nome, setNome] = useState("");
   const [preco, setPreco] = useState("");
   const [promocao, setPromocao] = useState("");
+  const [tipo, setTipo] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [validade, setValidade] = useState("");
   const [editandoId, setEditandoId] = useState(null);
 
   const [usuarios, setUsuarios] = useState([]);
@@ -72,6 +75,9 @@ function App() {
     setNome("");
     setPreco("");
     setPromocao("");
+    setTipo("");
+    setDescricao("");
+    setValidade("");
     setEditandoId(null);
   };
 
@@ -82,9 +88,9 @@ function App() {
       nome,
       precoAtual: Number(preco),
       precoPromocao: promocao ? Number(promocao) : null,
-      tipo: "Geral",
-      descricao: "",
-      validade: "2026-12-31",
+      tipo,
+      descricao,
+      validade,
     };
 
     if (editandoId) {
@@ -104,9 +110,12 @@ function App() {
 
   const editarProduto = (produto) => {
     setEditandoId(produto.id);
-    setNome(produto.nome);
-    setPreco(produto.precoAtual);
+    setNome(produto.nome || "");
+    setPreco(produto.precoAtual || "");
     setPromocao(produto.precoPromocao || "");
+    setTipo(produto.tipo || "");
+    setDescricao(produto.descricao || "");
+    setValidade(produto.validade || "");
     setPagina("produtos");
   };
 
@@ -115,9 +124,9 @@ function App() {
       nome: produto.nome,
       precoAtual: produto.precoAtual,
       precoPromocao: null,
-      tipo: produto.tipo || "Geral",
+      tipo: produto.tipo || "",
       descricao: produto.descricao || "",
-      validade: produto.validade || "2026-12-31",
+      validade: produto.validade || "",
     });
 
     carregarProdutos();
@@ -171,41 +180,34 @@ function App() {
   if (!usuario) {
     return (
       <div className="container">
-  <h1>Sistema Administrativo do Supermercado</h1>
-  <p style={{ textAlign: "center", color: "#64748b", marginBottom: "30px" }}>
-    Gerencie produtos, usuários e promoções de forma simples
-  </p>
+        <h1>Sistema Administrativo do Supermercado</h1>
 
-  <div className="form-box" style={{ maxWidth: "500px", margin: "0 auto" }}>
-    <h2 style={{ textAlign: "center" }}>Login</h2>
+        <div className="form-box">
+          <h2>Login</h2>
 
-    <form onSubmit={fazerLogin} className="form-grid">
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+          <form onSubmit={fazerLogin} className="form-grid">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-      <input
-        type="password"
-        placeholder="Senha"
-        value={senha}
-        onChange={(e) => setSenha(e.target.value)}
-      />
+            <input
+              type="password"
+              placeholder="Senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+            />
 
-      <button type="submit">Entrar</button>
-    </form>
+            <button type="submit">Entrar</button>
+          </form>
 
-    {mensagem && (
-      <p style={{ textAlign: "center", marginTop: "10px", color: "#dc2626" }}>
-        {mensagem}
-      </p>
-    )}
-  </div>
-</div>
-
-  )}
+          {mensagem && <p className="info-text">{mensagem}</p>}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
@@ -239,6 +241,24 @@ function App() {
                 placeholder="Preço promocional"
                 value={promocao}
                 onChange={(e) => setPromocao(e.target.value)}
+              />
+
+              <input
+                placeholder="Tipo"
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+              />
+
+              <input
+                placeholder="Descrição"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+              />
+
+              <input
+                type="date"
+                value={validade}
+                onChange={(e) => setValidade(e.target.value)}
               />
 
               <button type="submit">
@@ -275,6 +295,10 @@ function App() {
                   ) : (
                     <p className="info-text">Sem promoção</p>
                   )}
+
+                  <p className="info-text">Tipo: {p.tipo}</p>
+                  <p className="info-text">Descrição: {p.descricao}</p>
+                  <p className="info-text">Validade: {p.validade}</p>
 
                   <div className="card-actions">
                     <button onClick={() => editarProduto(p)}>Editar</button>
